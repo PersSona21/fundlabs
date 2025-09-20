@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,16 +9,16 @@ void printError(char *str){
     printf("Error: %s\n", str);
 }
 
-char validateFlag(const char *flag){
+bool validateFlag(const char *flag){
     if ((flag[0] == '/' || flag[0] == '-') && flag[2] == '\0'){
         if (flag[1] == 'h' || flag[1] == 'p' || flag[1] == 's' || flag[1] == 'e' || flag[1] == 'a'|| flag[1] == 'f'){
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 }
 
-void multiplesOfX(const int x){
+void multiplesOfX(int x){
     char flag = 0;
     if (x > 100){
         printf("No numbers multiples of %d\n", x);
@@ -34,17 +35,17 @@ void multiplesOfX(const int x){
     }
 }
 
-void isPrime(const int x){
+void isPrime(int x){
     if (x == 2){
         printf("2 is prime\n");
         return;
     }
     else if (x < 2){
-        printf("%d is composit\n", x);
+        printf("%d is not prime\n", x);
         return;
     }
     char flag = 0;
-    for (int i = 2; i <= floor(sqrt(x)) + 1; ++i){
+    for (int i = 2; i * i < x; ++i){
         if (x % i == 0){
             flag = 1;
             printf("%d is composit\n", x);
@@ -54,7 +55,7 @@ void isPrime(const int x){
     printf("%d is prime\n", x);
 }
 
-void splitToHEX(const int x){
+void splitToHEX(int x){
     if (x == 0){
         printf("0\n");
         return;
@@ -76,7 +77,7 @@ void splitToHEX(const int x){
     }
 }
 
-void tableOfDegreese(const int x){
+void tableOfDegrees(int x){
     if (x < 1){
         printError("x must bigger then 0");
         return;
@@ -104,7 +105,7 @@ void tableOfDegreese(const int x){
     }
 }
 
-void sumOfNaturealNumbers(const int x){
+void sumOfNaturalNumbers(int x){
     long sum = 0;
     for (int i = 1; i <= x; ++i){
         sum += i;
@@ -112,7 +113,7 @@ void sumOfNaturealNumbers(const int x){
     printf("sum of %d is %ld\n", x, sum);
 }
 
-void factorialOf(const int x){
+void factorialOf(int x){
     long long fac = 1;
     for (int i = 1; i <= x; ++i){
         fac *= i;
@@ -145,10 +146,10 @@ int main(int argc, char* argv[]){
             splitToHEX(x);
             break;
         case 'e':
-            tableOfDegreese(x);
+            tableOfDegrees(x);
             break;
         case 'a':
-            sumOfNaturealNumbers(x);
+            sumOfNaturalNumbers(x);
             break;
         case 'f':
             factorialOf(x);

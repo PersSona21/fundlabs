@@ -9,13 +9,13 @@ typedef enum return_code{
 } return_code;
 
 void printError(char *str);
-char validateFlag(const char *flag);
-void multiplesOfX(const int x);
-void isPrime(const int x);
-void splitToHEX(const int x);
-void tableOfDegreese(const int x);
-void sumOfNaturealNumbers(const int x);
-void factorialOf(const int x);
+bool validateFlag(const char *flag);
+void multiplesOfX(int x);
+void isPrime(int x);
+void splitToHEX(int x);
+void tableOfDegrees(int x);
+void sumOfNaturalNumbers(int x);
+void factorialOf(int x);
 
 
 #endif
