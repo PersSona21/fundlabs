@@ -17,6 +17,9 @@ bool validateFlag(const char *flag){
     return false;
 }
 
+void solveQE(double eps, double a, double b, double c){
+    return;
+}
 
 int main(int argc, char* argv[]){
     if (argc < 4){
@@ -31,13 +34,25 @@ int main(int argc, char* argv[]){
         return FLAG_ERROR;
     }
     switch (flag[1]) {
-        case 'q': 
+        case 'q':
+            if (argc < 6){
+                printError("must be eps, a, b, c");
+                return INPUT_ERROR;
+            }
             // solveQE
             break;
-        case 'm': 
+        case 'm':
+            if (argc < 4){
+                printError("must be a, b");
+                return INPUT_ERROR;
+            }
             // multiplicityCheck
             break;
         case 't':
+            if (argc < 6){
+                printError("must be eps, a, b, c");
+                return INPUT_ERROR;
+            }
             // isTriangle
             break;
         default:

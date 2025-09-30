@@ -12,5 +12,6 @@ void printError(char *str);
 bool validateFlag(const char *flag);
 void solveQE(double eps, double a, double b, double c);
 void multiplicityCheck(int a, int b);
+void isTriangle(double eps, double a, double b, double c);
 
 #endif

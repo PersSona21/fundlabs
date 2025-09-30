@@ -18,11 +18,11 @@ bool validateFlag(const char *flag){
     return false;
 }
 
-void multiplesOfX(int x){
+return_code multiplesOfX(int x){
     char flag = 0;
     if (x > 100){
         printf("No numbers multiples of %d\n", x);
-        return;
+        return OK;
     }
     for(int i = 1; i <= 100; ++i){
         if (i % x == 0){
@@ -33,32 +33,34 @@ void multiplesOfX(int x){
     if (!flag){
         printf("No numbers multiples of %d\n", x);
     }
+    return OK;
 }
 
-void isPrime(int x){
+return_code isPrime(int x){
     if (x == 2){
         printf("2 is prime\n");
-        return;
+        return OK;
     }
     else if (x < 2){
         printf("%d is not prime\n", x);
-        return;
+        return OK;
     }
     char flag = 0;
     for (int i = 2; i * i < x; ++i){
         if (x % i == 0){
             flag = 1;
             printf("%d is composit\n", x);
-            return;
+            return OK;
         }
     }
     printf("%d is prime\n", x);
+    return OK;
 }
 
-void splitToHEX(int x){
+return_code splitToHEX(int x){
     if (x == 0){
         printf("0\n");
-        return;
+        return OK;
     }
 
     unsigned ux = (unsigned) x;
@@ -75,16 +77,17 @@ void splitToHEX(int x){
         if (i == 0) printf("%c\n", buffer[i]);
         else printf("%c ", buffer[i]);
     }
+    return OK;
 }
 
-void tableOfDegrees(int x){
+return_code tableOfDegrees(int x){
     if (x < 1){
         printError("x must bigger then 0");
-        return;
+        return NUMBER_ERROR;
     }
     else if (x > 10){
         printError("x must not bigger then 10");
-        return;
+        return NUMBER_ERROR;
     }
     
     for (int i = 1; i <= x; ++i){
@@ -103,29 +106,32 @@ void tableOfDegrees(int x){
             }
         }
     }
+    return OK;
 }
 
-void sumOfNaturalNumbers(int x){
+return_code sumOfNaturalNumbers(int x){
     long sum = 0;
     for (int i = 1; i <= x; ++i){
         sum += i;
     }
     printf("sum of %d is %ld\n", x, sum);
+    return OK;
 }
 
-void factorialOf(int x){
+return_code factorialOf(int x){
     long long fac = 1;
     for (int i = 1; i <= x; ++i){
         fac *= i;
     }
 
     printf("factorial of %d is %lld\n", x, fac);
+    return OK;
 }
 
 int main(int argc, char* argv[]){
     if (argc != 3){
         printError("should be number and flag\n");
-        return ARGUMENT_ERROR;
+        return INPUT_ERROR;
     }
 
     const char *flag = argv[2];
@@ -137,22 +143,34 @@ int main(int argc, char* argv[]){
     const int x = atoi(argv[1]);
     switch (flag[1]) {
         case 'h': 
-            multiplesOfX(x);
+            if (multiplesOfX(x)){
+                return FUNCTION_ERROR;
+            }
             break;
-        case 'p': 
-            isPrime(x);
+        case 'p':
+            if (isPrime(x)){
+                return FUNCTION_ERROR;
+            }
             break;
         case 's':
-            splitToHEX(x);
+            if (splitToHEX(x)){
+                return FUNCTION_ERROR;
+            }
             break;
         case 'e':
-            tableOfDegrees(x);
+            if (tableOfDegrees(x) == 2){
+                return NUMBER_ERROR;
+            }
             break;
         case 'a':
-            sumOfNaturalNumbers(x);
+            if (sumOfNaturalNumbers(x)){
+                return FUNCTION_ERROR;
+            }
             break;
         case 'f':
-            factorialOf(x);
+            if (factorialOf(x)){
+                return FUNCTION_ERROR;
+            }
             break;
         default:
             printError("incorrect flag");
