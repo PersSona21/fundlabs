@@ -12,6 +12,7 @@ typedef enum return_code{
 
 void printError(char *str);
 bool validateFlag(const char *flag);
+return_code validateInt(const char *str, int *value);
 return_code multiplesOfX(int x);
 return_code isPrime(int x);
 return_code splitToHEX(int x);
