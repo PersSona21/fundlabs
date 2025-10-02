@@ -14,7 +14,7 @@ return_code validateInt(const char *str, int *value){
     char *end;
     long num = strtol(str, &end, 10);
 
-    if(*end != '\0' || end == NULL){
+    if(*end != '\0'){
         printError("Input must be <int> <flag>");
         return INPUT_ERROR;
     }
