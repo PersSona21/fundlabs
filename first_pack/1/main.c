@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <limits.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -7,6 +8,25 @@
 
 void printError(char *str){
     printf("Error: %s\n", str);
+}
+
+return_code validateInt(const char *str, int *value){
+    char *end;
+    long num = strtol(str, &end, 10);
+
+    if(*end != '\0' || end == NULL){
+        printError("Input must be <int> <flag>");
+        return INPUT_ERROR;
+    }
+
+    if (num < INT_MIN || num > INT_MAX){
+        printError("Must be int");
+        return TYPE_ERROR;
+    }
+
+    *value = (int) num;
+
+    return OK;
 }
 
 bool validateFlag(const char *flag){
@@ -133,29 +153,32 @@ int main(int argc, char* argv[]){
         printError("should be number and flag\n");
         return INPUT_ERROR;
     }
-
     const char *flag = argv[2];
 
     if (!validateFlag(flag)){
         printError("incorrect flag\n");
         return FLAG_ERROR;
     }
-    const int x = atoi(argv[1]);
+
+    const char *str = argv[1];
+    int x;
+    return_code code = validateInt(str, &x);
+    if (code == INPUT_ERROR){
+        return INPUT_ERROR;
+    }
+    else if (code == TYPE_ERROR){
+        return TYPE_ERROR;
+    }
+
     switch (flag[1]) {
         case 'h': 
-            if (multiplesOfX(x)){
-                return FUNCTION_ERROR;
-            }
+            multiplesOfX(x);
             break;
         case 'p':
-            if (isPrime(x)){
-                return FUNCTION_ERROR;
-            }
+            isPrime(x);
             break;
         case 's':
-            if (splitToHEX(x)){
-                return FUNCTION_ERROR;
-            }
+            splitToHEX(x);
             break;
         case 'e':
             if (tableOfDegrees(x) == 2){
@@ -163,14 +186,10 @@ int main(int argc, char* argv[]){
             }
             break;
         case 'a':
-            if (sumOfNaturalNumbers(x)){
-                return FUNCTION_ERROR;
-            }
+            sumOfNaturalNumbers(x);
             break;
         case 'f':
-            if (factorialOf(x)){
-                return FUNCTION_ERROR;
-            }
+            factorialOf(x);
             break;
         default:
             printError("incorrect flag");

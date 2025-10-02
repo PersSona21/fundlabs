@@ -12,7 +12,9 @@ typedef enum return_code{
 
 void printError(char *str);
 bool validateFlag(const char *flag);
+bool cmp(const double *arr1, const double *arr2, double eps);
 return_code solveQE(double eps, double a, double b, double c);
+return_code shuffle(double eps, double a, double b, double c);
 return_code multiplicityCheck(int a, int b);
 return_code isTriangle(double eps, double a, double b, double c);
 

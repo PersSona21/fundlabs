@@ -6,7 +6,8 @@ typedef enum return_code{
     FLAG_ERROR = 1,
     NUMBER_ERROR = 2,
     INPUT_ERROR = 3,
-    FUNCTION_ERROR = 4
+    FUNCTION_ERROR = 4,
+    TYPE_ERROR = 5
 } return_code;
 
 void printError(char *str);

@@ -18,7 +18,17 @@ bool validateFlag(const char *flag){
     return false;
 }
 
+bool cmp(const double *arr1, const double *arr2, double eps){
+    for (int i = 0; i < 3; ++i){
+        if (fabs(arr1[i] - arr2[i]) > eps){
+            return false;
+        }
+    }
+    return true;
+}
+
 return_code solveQE(double eps, double a, double b, double c){
+    printf("-----------------------------\n");
     printf("For eps = %f, a = %f, b = %f, c = %f\n", eps, a, b, c);
     if (fabs(a) <= eps){
         if (fabs(b) <= eps){
@@ -34,7 +44,7 @@ return_code solveQE(double eps, double a, double b, double c){
                 printf("x = 0\n");
             }
             else {
-                double x = -b / c;
+                double x = -c / b;
                 printf("x = %f\n", x);
             }
         }
@@ -58,6 +68,31 @@ return_code solveQE(double eps, double a, double b, double c){
     return OK;
 }
 
+return_code shuffle(double eps, double a, double b, double c){
+    double perms[6][3] = {
+        {a, b, c},
+        {a, c, b},
+        {b, a, c},
+        {b, c, a},
+        {c, a, b},
+        {c, b, a}
+    };
+
+    for (int i = 0; i < 6; ++i){
+        bool flag = true;
+        for (int j = 0; j < i; ++j){
+            if (cmp(perms[i], perms[j], eps)){
+                flag = false;
+                break;
+            }
+        }
+        if (flag){
+            solveQE(eps, perms[i][0], perms[i][1], perms[i][2]);
+        }
+    }
+    return OK;
+}
+
 return_code multiplicityCheck(int a, int b){
     if (a == 0 || b == 0){
         return NUMBER_ERROR;
@@ -72,7 +107,7 @@ return_code multiplicityCheck(int a, int b){
 }
 
 return_code isTriangle(double eps, double a, double b, double c){
-    if (fabs(a) <= eps || fabs(b) <= eps || fabs(c) <= eps){
+    if (a <= eps || b <= eps || c <= eps){
         printf("They can't be sides of a triangle\n");
         return OK;
     }
@@ -109,7 +144,9 @@ int main(int argc, char* argv[]){
             double a = atof(argv[3]);
             double b = atof(argv[4]);
             double c = atof(argv[5]);
-            solveQE(eps, a, b, c);
+            if (shuffle(eps, a, b, c)){
+                return FUNCTION_ERROR;
+            }
             break;
         case 'm':
             if (argc != 4){

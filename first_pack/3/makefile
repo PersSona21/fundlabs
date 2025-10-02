@@ -1,3 +1,3 @@
 all:
 	clang main.c -o main
-	./main -t 0.1 3 4 5 
+	./main -q 0.1 1 2 3
