@@ -7,11 +7,14 @@ typedef enum return_code{
     NUMBER_ERROR = 2,
     INPUT_ERROR = 3,
     DIVIDE_BY_ZERO = 4,
-    FUNCTION_ERROR = 5
+    FUNCTION_ERROR = 5,
+    TYPE_ERROR = 6
 } return_code;
 
 void printError(char *str);
 bool validateFlag(const char *flag);
+return_code validateDouble(const char *s, double *value);
+return_code validateInt(const char *str, int *value);
 bool cmp(const double *arr1, const double *arr2, double eps);
 return_code solveQE(double eps, double a, double b, double c);
 return_code shuffle(double eps, double a, double b, double c);

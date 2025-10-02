@@ -1,6 +1,8 @@
 #include <stdbool.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <float.h>
 #include <math.h>
 #include "main.h"
 
@@ -16,6 +18,49 @@ bool validateFlag(const char *flag){
         }
     }
     return false;
+}
+
+return_code validateInt(const char *str, int *value){
+    char *end;
+    long num = strtol(str, &end, 10);
+
+    if(end == NULL || *end != '\0'){
+        printError("Input must be <int> <flag>");
+        return INPUT_ERROR;
+    }
+
+    if (num < INT_MIN || num > INT_MAX){
+        printError("Must be int");
+        return TYPE_ERROR;
+    }
+
+    *value = (int) num;
+
+    return OK;
+}
+
+return_code validateDouble(const char *s, double *value) {
+    char *end;
+    double num = strtod(s, &end);
+
+    if (s == NULL || *s == '\0') {
+        printError("Input error");
+        return INPUT_ERROR;
+    }
+
+
+    if (*end != '\0') {
+        printError("Must be double");
+        return TYPE_ERROR;
+    }
+    
+    if (num > DBL_MAX || num < DBL_MIN) {
+        printError("Must be double");
+        return TYPE_ERROR;
+    }
+
+    *value = num;
+    return OK;
 }
 
 bool cmp(const double *arr1, const double *arr2, double eps){
@@ -140,10 +185,15 @@ int main(int argc, char* argv[]){
                 printError("must be eps, a, b, c");
                 return INPUT_ERROR;
             }
-            double eps = atof(argv[2]);
-            double a = atof(argv[3]);
-            double b = atof(argv[4]);
-            double c = atof(argv[5]);
+            double eps, a, b, c;
+            return_code codeEps = validateDouble(argv[2], &eps);
+            return_code codeA = validateDouble(argv[3], &a);
+            return_code codeB = validateDouble(argv[4], &b);
+            return_code codeC = validateDouble(argv[5], &c);
+            if (codeA) return FUNCTION_ERROR;
+            if (codeB) return FUNCTION_ERROR;
+            if (codeC) return FUNCTION_ERROR;
+            if (codeEps) return FUNCTION_ERROR;
             if (shuffle(eps, a, b, c)){
                 return FUNCTION_ERROR;
             }
@@ -153,8 +203,11 @@ int main(int argc, char* argv[]){
                 printError("must be a, b");
                 return INPUT_ERROR;
             }
-            int a1 = atoi(argv[2]);
-            int b1 = atoi(argv[3]);
+            int a1, b1;
+            return_code codeA1 = validateInt(argv[2], &a1);
+            return_code codeB1 = validateInt(argv[3], &b1);
+            if (codeA1) return FUNCTION_ERROR;
+            if (codeB1) return FUNCTION_ERROR;
             if(multiplicityCheck(a1, b1) == NUMBER_ERROR){
                 printError("a or b can't equal 0");
             }
@@ -164,10 +217,15 @@ int main(int argc, char* argv[]){
                 printError("must be eps, a, b, c");
                 return INPUT_ERROR;
             }
-            double eps2 = atof(argv[2]);
-            double a2 = atof(argv[3]);
-            double b2 = atof(argv[4]);
-            double c2 = atof(argv[5]);
+            double eps2, a2, b2, c2;
+            return_code codeEps2 = validateDouble(argv[2], &eps2);
+            return_code codeA2 = validateDouble(argv[3], &a2);
+            return_code codeB2 = validateDouble(argv[4], &b2);
+            return_code codeC2 = validateDouble(argv[5], &c2);
+            if (codeA) return FUNCTION_ERROR;
+            if (codeB) return FUNCTION_ERROR;
+            if (codeC) return FUNCTION_ERROR;
+            if (codeEps) return FUNCTION_ERROR;
             if (isTriangle(eps2, a2, b2, c2)){
                 return FUNCTION_ERROR;
             }
