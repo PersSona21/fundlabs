@@ -89,11 +89,12 @@ return_code splitToHEX(int x){
 
     while(ux > 0){
         int num = ux % 16;
-        buffer[pos++] = (num < 10) ? ('0' + num) : ('A' + num - 10);
+        if (num < 10) buffer[pos++] = ('0' + num);
+        else buffer[pos++] = ('A' + num - 10);
         ux /= 16;
     }
 
-    for (int i = pos - 1; i >= 0; --i){
+    for (int i = pos - 1; i >= 0; --i){ // с pos - 1 так как в прошлом цыкле мы встали на нужную позицию + 1
         if (i == 0) printf("%c\n", buffer[i]);
         else printf("%c ", buffer[i]);
     }
