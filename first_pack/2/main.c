@@ -28,7 +28,7 @@ return_code validateInt(const char *str, int *value){
     char *end;
     long num = strtol(str, &end, 10);
 
-    if(*end != '\0'){
+    if(*end != '\0' && *end != '\n'){ // добавил проверку на '\n'
         printError("input problem");
         return INVALID_INPUT;
     }
@@ -62,7 +62,7 @@ int main(){
         printError("input problem");
         return INVALID_INPUT;
     }
-    buffer[strcspn(buffer, "\n")] = '\0';
+    // buffer[strcspn(buffer, "\n")] = '\0'; раньше использовал но встроил проверку в validateInt
     return_code res = validateInt(buffer, &T);
     if (res == INVALID_INPUT){
         return INVALID_INPUT;
@@ -80,7 +80,7 @@ int main(){
             printError("input problem");
             return INVALID_INPUT;
         }
-        buffer2[strcspn(buffer2, "\n")] = '\0';
+        // buffer2[strcspn(buffer2, "\n")] = '\0'; раньше использовал но встроил проверку в validateInt
         return_code res2 = validateInt(buffer2, &n);
         if (res2 == INVALID_INPUT){
             return INVALID_INPUT;
