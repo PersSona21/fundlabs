@@ -24,7 +24,7 @@ return_code validateInt(const char *str, int *value){
     char *end;
     long num = strtol(str, &end, 10);
 
-    if(end == NULL || *end != '\0'){
+    if(*end != '\0' && *end != '\n'){
         printError("Input must be <int> <flag>");
         return INPUT_ERROR;
     }
@@ -43,21 +43,22 @@ return_code validateDouble(const char *s, double *value) {
     char *end;
     double num = strtod(s, &end);
 
-    if (s == NULL || *s == '\0') {
+    if (s == NULL && *s == '\0') {
         printError("Input error");
         return INPUT_ERROR;
     }
 
 
-    if (*end != '\0') {
+    if (*end != '\0' && *end != '\n') {
         printError("Must be double");
         return TYPE_ERROR;
     }
     
-    if (num > DBL_MAX || num < DBL_MIN) {
-        printError("Must be double");
-        return TYPE_ERROR;
-    }
+    // Я не знаю насколько это надо
+    // if (num > DBL_MAX || num < -DBL_MIN) {
+    //     printError("Must be double");
+    //     return TYPE_ERROR;
+    // }
 
     *value = num;
     return OK;
@@ -153,16 +154,16 @@ return_code multiplicityCheck(int a, int b){
 
 return_code isTriangle(double eps, double a, double b, double c){
     if (a <= eps || b <= eps || c <= eps){
-        printf("They can't be sides of a triangle\n");
+        printf("They can't be sides of a right triangle\n");
         return OK;
     }
     if (fabs(a * a + b * b - c * c) <= eps 
     || fabs(a * a + c * c - b * b) <= eps 
     || fabs(c * c + b * b - a * a) <= eps){
-        printf("They can be sides of a triangle\n");
+        printf("They can be sides of a right triangle\n");
     }
     else {
-        printf("They can't be sides of a triangle\n");
+        printf("They can't be sides of a right triangle\n");
     }
     return OK;
 }
@@ -222,10 +223,11 @@ int main(int argc, char* argv[]){
             return_code codeA2 = validateDouble(argv[3], &a2);
             return_code codeB2 = validateDouble(argv[4], &b2);
             return_code codeC2 = validateDouble(argv[5], &c2);
-            if (codeA) return FUNCTION_ERROR;
-            if (codeB) return FUNCTION_ERROR;
-            if (codeC) return FUNCTION_ERROR;
-            if (codeEps) return FUNCTION_ERROR;
+            // printf("%d %d %d %d \n", codeEps2, codeA2, codeB2, codeC2); проверка (я тупой)
+            if (codeEps2) return FUNCTION_ERROR;
+            if (codeA2) return FUNCTION_ERROR;
+            if (codeB2) return FUNCTION_ERROR;
+            if (codeC2) return FUNCTION_ERROR;
             if (isTriangle(eps2, a2, b2, c2)){
                 return FUNCTION_ERROR;
             }

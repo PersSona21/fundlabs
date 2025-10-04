@@ -1,5 +1,8 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef VALIDATION_H
+#define VALIDATION_H
+#include <stdbool.h>
+#include <stdio.h>
+
 
 typedef enum return_code{
     OK = 0,
@@ -10,15 +13,9 @@ typedef enum return_code{
     TYPE_ERROR = 5
 } return_code;
 
+
 void printError(char *str);
 bool validateFlag(const char *flag);
 return_code validateInt(const char *str, int *value);
-return_code multiplesOfX(int x);
-return_code isPrime(int x);
-return_code splitToHEX(int x);
-return_code tableOfDegrees(int x);
-return_code sumOfNaturalNumbers(int x);
-return_code factorialOf(int x);
-
 
 #endif

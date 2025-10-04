@@ -1,3 +1,3 @@
-all:
-	clang main.c -o main
-	./main 47 -p
+all: program
+program: src/main.c src/functions.c src/validate.c
+	clang -Iinclude -o program src/*.c
