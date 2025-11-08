@@ -27,7 +27,6 @@ int main(int argc, char* argv[]){
         return TYPE_ERROR;
     }
 
-
     switch (flag[1]) {
         case 'h': {
             int count;
