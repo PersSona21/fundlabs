@@ -1,0 +1,7 @@
+Hello world!
+This is 123 test line.
+Special chars: !@#$%^&*()_+
+Кириллица: Привет, как дела?
+Empty line follows:
+
+Last line with number 456.
