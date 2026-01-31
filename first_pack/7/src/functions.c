@@ -34,6 +34,7 @@ char* remove_leading_zeros(const char* str) {
 }
 
 int toDecimal(const char* str, const int base){
+    // printf("%s\n", str);
     if (str == NULL) {
         return -1;
     }

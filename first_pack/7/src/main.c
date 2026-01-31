@@ -38,9 +38,18 @@ int main(int argc, char *argv[])
             printf("ERROR: not a number in input file\n");
             return INPUT_ERROR;
         }
-        char * str = remove_leading_zeros(buf);
-        fprintf(output, "%s %d %d\n", str, minimumBasis(str), toDecimal(str, minimumBasis(str)));
-        free(str);
+
+        if (buf[0] == '-'){
+            char* mod_buf = &buf[1];
+            char * str = remove_leading_zeros(mod_buf);
+            fprintf(output, "-%s %d -%d\n", str, minimumBasis(str), toDecimal(str, minimumBasis(str)));
+            free(str);
+        }
+        else{
+            char * str = remove_leading_zeros(buf);
+            fprintf(output, "%s %d %d\n", str, minimumBasis(str), toDecimal(str, minimumBasis(str)));
+            free(str);
+        }
     }
 
     fclose(input);
