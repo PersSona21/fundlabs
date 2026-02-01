@@ -1,3 +1,0 @@
-all:
-	clang -fsanitize=address -g -O1 src/*.c -o main
-	./main -q 0.1 1 2 3
