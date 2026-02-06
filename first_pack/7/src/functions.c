@@ -18,9 +18,9 @@ static int charToDecimal(const char c){
     return num;
 }
 
-char* remove_leading_zeros(const char* str) {
+char* removeLeadingZeros(const char* str) {
     if (str == NULL) {
-        return strdup("0");
+        return "0";
     }
 
     size_t i = 0;

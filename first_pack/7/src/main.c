@@ -41,12 +41,12 @@ int main(int argc, char *argv[])
 
         if (buf[0] == '-'){
             char* mod_buf = &buf[1];
-            char * str = remove_leading_zeros(mod_buf);
+            char * str = removeLeadingZeros(mod_buf);
             fprintf(output, "-%s %d -%d\n", str, minimumBasis(str), toDecimal(str, minimumBasis(str)));
             free(str);
         }
         else{
-            char * str = remove_leading_zeros(buf);
+            char * str = removeLeadingZeros(buf);
             fprintf(output, "%s %d %d\n", str, minimumBasis(str), toDecimal(str, minimumBasis(str)));
             free(str);
         }
